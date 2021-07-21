@@ -9,6 +9,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.convert.ReadingConverter;
 import org.springframework.data.convert.WritingConverter;
 import org.springframework.data.r2dbc.convert.R2dbcCustomConversions;
+import org.springframework.data.r2dbc.dialect.PostgresDialect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class R2dbcConfig {
         List<Converter<?, ?>> converters = new ArrayList<>();
         converters.add(new MessageBodyReadConverter());
         converters.add(new MessageBodyWriteConverter());
-        return new R2dbcCustomConversions(converters);
+        return R2dbcCustomConversions.of(PostgresDialect.INSTANCE, converters);
     }
 
     @ReadingConverter
